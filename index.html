@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="estilos.css">
+    <script src="lista_discos.js"></script>
+    <script defer src="funciones.js"></script>
+    <script defer src="app.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@600&display=swap" rel="stylesheet">
+    <title>Discos</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="">INICIO</a>
+            <a href="">CATEGORIAS</a>
+            <a href="">TIENDA</a>
+            <a href="">SOBRE NOSOTROS</a>
+            <a href="">CONTACTO</a>
+            <div class="icono_carro">
+                <button class="abrir_carro">
+                    <i class="fa-brands fa-shopify"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="contenido_carro">
+            <aside class="carro">
+                <div>
+                    <button class="cerrar_carro">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                </div>
+                <h3>Tu Compra</h3>
+                <button class="vaciar_carro">VACIAR
+                    <i class="fa-sharp fa-solid fa-trash"></i>
+                </button>
+                <div class="discos_carro">
+    
+                </div>
+                <h3 class="total_compra">Total: 0€</h3>
+                <button class="confirmar_compra">PAGAR</button>
+            </aside>
+        </div>
+        <section class="discos">
+            <div class="filtros">
+              <div class="contenido_filtros">
+                    <form class="input-form">
+                        <input type="text" class="buscador" placeholder="Buscar..." />
+                    </form>
+                    <h4>Categorias</h4>
+                    <article class="categorias">
+                        <button class="categorias-btn">Todas</button>
+                    </article>
+                    <h4>Precio</h4>
+                    <form class="formprecio">
+                        <input type="range" class="precio-filtro" min="0" value="0" max="100" />
+                    </form>
+                    <p class="precio-valor">Precio máximo: 0€</p>
+                    <h4>Buscar por Fecha</h4>
+                    <div class="filtro_fecha">
+                        <input id="fecha1" type="date">
+                        <p>a</p>
+                        <input id="fecha2" type="date">
+                    </div>
+                    <button id="boton_fecha">
+                        BUSCAR
+                    </button>
+                </div>
+            </div>
+            <div class="discos-contenido"></div>
+            <div class="alerta">
+            
+            </div>
+        </section>
+        <div class="modal">
+            <div class="modal-contenido">
+                <img src="" class="main-img" alt="" />
+                <h3></h3>
+                <h2 class="image-title">title</h2>
+                <h3 class="image-alt">pr</h3>    
+                <button class='comprarmodal'>Comprar
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </button>
+            </div>
+            <button class="close-btn">
+                <i class="fas fa-times"></i>
+              </button>
+        </div>
+    </main>
+</body>
+</html>
