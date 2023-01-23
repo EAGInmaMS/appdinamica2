@@ -32,8 +32,6 @@ function Inicio(){
     input_fecha1.value=hoy.toISOString().substring(0,10);
     input_fecha2.value=hoy.toISOString().substring(0,10);
 
-    console.log(input_fecha1.value)
-
 }
 
 function renderizar(discos,contenedor,creador){
@@ -48,9 +46,7 @@ function renderizar(discos,contenedor,creador){
 function crearDisco(d){
     const disco=document.createElement("article");
     let fechadisco=Date.parse(d.fecha);
-    console.log(fechadisco);
     fechadisco=new Date(fechadisco);
-    console.log(fechadisco);
     let dia=fechadisco.getDate();
     let mes=fechadisco.getMonth();
     let año=fechadisco.getFullYear();
@@ -70,6 +66,7 @@ function crearDisco(d){
             <p>${d.nombre}</p>
             <p>${d.precio}€</p>
             <p>${dia}-${mes}-${año}</p>
+            <p>${d.unidades} unidades</p>
         </div>
     </article>`;
 
@@ -96,22 +93,34 @@ function crearDisco(d){
 
         const discoa=discos.find(discoe=>discoe.id===clave);
 
-        discos_compra.push(discoa);
+        const form_unidades=document.createElement('form');
+        form_unidades.classList.add('mensajee');
+        form_unidades.innerHTML=`<label for='uni'>Unidades que deseas:</label>
+        <input id='uni' type='number' step=1 name='uni' value=1>
+        <input type='submit' name='enviar' id='env_uni_carro'>`;
 
-        const nuevodiscocarro=añadirDiscoCarro(discoa);
-        discos_carro.appendChild(nuevodiscocarro);
+        const enviar=form_unidades.querySelector("#env_uni_carro");
 
-        localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
+        enviar.addEventListener("click",()=>{
+            const uni_añadidas=form_unidades.querySelector("#id");
+            let contador=uni_añadidas.value;
+            if(uni_añadidas>0){
+                discos_compra.push(discoa);
+                const nuevodiscocarro=añadirDiscoCarro(discoa,contador);
+                discos_carro.appendChild(nuevodiscocarro);
 
-        mostrarMensaje("Disco añadido al carrito","mensajee");
+                localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
+
+                mostrarMensaje("Disco añadido al carrito","mensajee");
+            }
+        }); 
     });
 
     return disco;
 }
 
-function añadirDiscoCarro(datos_disco){
+function añadirDiscoCarro(datos_disco,contador){
     const nuevo_disco=document.createElement('article');
-    let contador=1;
     nuevo_disco.classList.add('discocarro');
     nuevo_disco.setAttribute('data-id',datos_disco.id);
     nuevo_disco.innerHTML=`<img src="${datos_disco.imagen}" alt="${datos_disco.nombre}"/>
