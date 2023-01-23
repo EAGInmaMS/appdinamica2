@@ -60,6 +60,11 @@ function crearDisco(d){
                 <button class='comprar'>Comprar
                 <i class="fa-solid fa-cart-shopping"></i>
                 </button>
+                <form id='formuni'>
+                    <label for='uni'>Cantidad:</label>
+                    <input type='number' name='uni' step=1 class='unidades' value='1'>
+                    <input type='submit' id='enviaruni'>
+                </form>
             </div>
         </div>
         <div>
@@ -92,35 +97,23 @@ function crearDisco(d){
         const clave=padre.getAttribute("data-id");
 
         const discoa=discos.find(discoe=>discoe.id===clave);
+        discoa.unidades--;
+        discos_compra.push(discoa);
 
-        const form_unidades=document.createElement('form');
-        form_unidades.classList.add('mensajee');
-        form_unidades.innerHTML=`<label for='uni'>Unidades que deseas:</label>
-        <input id='uni' type='number' step=1 name='uni' value=1>
-        <input type='submit' name='enviar' id='env_uni_carro'>`;
+        const nuevodiscocarro=añadirDiscoCarro(discoa);
+        discos_carro.appendChild(nuevodiscocarro);
 
-        const enviar=form_unidades.querySelector("#env_uni_carro");
+        localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
 
-        enviar.addEventListener("click",()=>{
-            const uni_añadidas=form_unidades.querySelector("#id");
-            let contador=uni_añadidas.value;
-            if(uni_añadidas>0){
-                discos_compra.push(discoa);
-                const nuevodiscocarro=añadirDiscoCarro(discoa,contador);
-                discos_carro.appendChild(nuevodiscocarro);
-
-                localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
-
-                mostrarMensaje("Disco añadido al carrito","mensajee");
-            }
-        }); 
+        mostrarMensaje("Disco añadido al carrito","mensajee");
     });
 
     return disco;
 }
 
-function añadirDiscoCarro(datos_disco,contador){
+function añadirDiscoCarro(datos_disco){
     const nuevo_disco=document.createElement('article');
+    let contador=1;
     nuevo_disco.classList.add('discocarro');
     nuevo_disco.setAttribute('data-id',datos_disco.id);
     nuevo_disco.innerHTML=`<img src="${datos_disco.imagen}" alt="${datos_disco.nombre}"/>
@@ -142,11 +135,13 @@ function añadirDiscoCarro(datos_disco,contador){
 
     masuni.addEventListener("click",()=>{
         contador++;
+        datos_disco.unidades++;
         unidades.innerText=`${contador}`;
     });
 
     menosuni.addEventListener("click",()=>{
         contador--;
+        datos_disco.unidades--;
         unidades.innerText=`${contador}`;
     });
 
@@ -154,8 +149,8 @@ function añadirDiscoCarro(datos_disco,contador){
         const contenedor_clave=evento.currentTarget.parentElement.parentElement;
         const clave_carro=contenedor_clave.getAttribute("data-id");
 
-        discos_compra.findIndex(disco=>disco.clave===clave_carro);
-        discos_compra.splice(1,0);
+        const index=discos_compra.findIndex(disco=>disco.clave===clave_carro);
+        discos_compra.splice(index,1);
         localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
         contenedor_clave.remove();
         mostrarMensaje("Eliminado con éxito","mensajee");

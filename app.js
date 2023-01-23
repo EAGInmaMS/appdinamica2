@@ -17,6 +17,7 @@ const input_fecha1=document.getElementById("fecha1");
 const input_fecha2=document.getElementById("fecha2");
 const botonfecha=document.getElementById("boton_fecha");
 const comprarm=document.querySelector(".comprarmodal");
+const vaciar=document.querySelector(".vaciar_carro");
 
 
 Inicio();
@@ -107,6 +108,13 @@ comprarm.addEventListener("click",(disco)=>{
         modal.classList.remove("open");
 
         mostrarMensaje("Disco añadido al carrito","mensajee");
-})
+});
+
+vaciar.addEventListener("click",()=>{
+    localStorage.clear();
+
+    discos_carro.innerHTML="";
+
+});
 
 
