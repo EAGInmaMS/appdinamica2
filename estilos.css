@@ -263,6 +263,7 @@ h4{
     align-items: center;
     color: #ddcbc7;
     background-color: rgba(00, 00, 00,0.75);
+    z-index: 99999;
 }
 
 .alerta h3{
