@@ -18,6 +18,9 @@ const input_fecha2=document.getElementById("fecha2");
 const botonfecha=document.getElementById("boton_fecha");
 const comprarm=document.querySelector(".comprarmodal");
 const vaciar=document.querySelector(".vaciar_carro");
+const formo=document.getElementById("formunimodal");
+const unimodal=document.querySelector(".unidadesm");
+const envimodal=document.getElementById("enviarunim");
 
 
 Inicio();
@@ -95,19 +98,31 @@ botonfecha.addEventListener("click",()=>{
 comprarm.addEventListener("click",(disco)=>{
     const padre=disco.currentTarget.parentElement;
     const clave=padre.getAttribute("data-id");
-
     const discoa=discos.find(discoe=>discoe.id===clave);
 
-        discos_compra.push(discoa);
+    formo.style.display="block";
+    comprarm.style.display="none";
 
-        const nuevodiscocarro=añadirDiscoCarro(discoa);
-        discos_carro.appendChild(nuevodiscocarro);
+    envimodal.addEventListener("click",()=>{
+        let cantidadm=unimodal.value;
+        if(cantidadm>0){
+            let discoaa={...discoa,cantidad:cantidadm};
+            discos_compra.push(discoaa);
 
-        localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
+            const nuevodiscocarro=añadirDiscoCarro(discoaa);
+            discos_carro.appendChild(nuevodiscocarro);
 
-        modal.classList.remove("open");
+            localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
 
-        mostrarMensaje("Disco añadido al carrito","mensajee");
+            modal.classList.remove("open");
+
+            mostrarMensaje("Disco añadido al carrito","mensajee");
+        }else{
+            mostrarMensaje("Cantidad errónea","mensajee");
+        }
+        
+    });
+        
 });
 
 vaciar.addEventListener("click",()=>{
