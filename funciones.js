@@ -98,10 +98,13 @@ function crearDisco(d){
     añadir.addEventListener("click",(disco)=>{
         const padre=disco.currentTarget.parentElement.parentElement;
         const clave=padre.getAttribute("data-id");
-        formuni.style.display="block";
-        añadir.style.display="none";
-        const discoa=discos.find(discoe=>discoe.id===clave);
-        enviaruni.addEventListener("click",()=>{
+        const discobuscado=discos_compra.find(discob=>discob.id===clave);
+        if(discobuscado===undefined){
+            formuni.style.display="block";
+            añadir.style.display="none";
+            const discoa=discos.find(discoe=>discoe.id===clave);
+
+            enviaruni.addEventListener("click",()=>{
             let cantidaduni=unicarro.value;
             if(cantidaduni>0){
                 let discoaa={...discoa,cantidad:cantidaduni};
@@ -115,10 +118,11 @@ function crearDisco(d){
             }else{
                 mostrarMensaje("Cantidad incorrecta","mensajee");
             }
-            
 
-        });
-        
+            });
+        }else{
+            mostrarMensaje("Disco ya añadido al carro","mensajee");
+        }
     });
 
     return disco;

@@ -21,6 +21,8 @@ const vaciar=document.querySelector(".vaciar_carro");
 const formo=document.getElementById("formunimodal");
 const unimodal=document.querySelector(".unidadesm");
 const envimodal=document.getElementById("enviarunim");
+const stotal=document.querySelector(".total_compra");
+const confirmar=document.querySelector(".confirmar_compra");
 
 
 Inicio();
@@ -99,29 +101,34 @@ comprarm.addEventListener("click",(disco)=>{
     const padre=disco.currentTarget.parentElement;
     const clave=padre.getAttribute("data-id");
     const discoa=discos.find(discoe=>discoe.id===clave);
+    const discobuscado=discos_compra.find(discob=>discob.id===clave);
+    if(discobuscado===undefined){
+        formo.style.display="block";
+        comprarm.style.display="none";
 
-    formo.style.display="block";
-    comprarm.style.display="none";
+        envimodal.addEventListener("click",()=>{
+            let cantidadm=unimodal.value;
+            if(cantidadm>0){
+                let discoaa={...discoa,cantidad:cantidadm};
+                discos_compra.push(discoaa);
 
-    envimodal.addEventListener("click",()=>{
-        let cantidadm=unimodal.value;
-        if(cantidadm>0){
-            let discoaa={...discoa,cantidad:cantidadm};
-            discos_compra.push(discoaa);
+                const nuevodiscocarro=añadirDiscoCarro(discoaa);
+                discos_carro.appendChild(nuevodiscocarro);
 
-            const nuevodiscocarro=añadirDiscoCarro(discoaa);
-            discos_carro.appendChild(nuevodiscocarro);
+                localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
 
-            localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
+                modal.classList.remove("open");
 
-            modal.classList.remove("open");
-
-            mostrarMensaje("Disco añadido al carrito","mensajee");
-        }else{
-            mostrarMensaje("Cantidad errónea","mensajee");
-        }
-        
-    });
+                mostrarMensaje("Disco añadido al carrito","mensajee");
+            }else{
+                mostrarMensaje("Cantidad errónea","mensajee");
+            }
+            
+        });
+    }else{
+        mostrarMensaje("Disco ya añadido al carrito","mensajee");
+    }
+    
         
 });
 
