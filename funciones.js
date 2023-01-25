@@ -163,11 +163,10 @@ function añadirDiscoCarro(datos_disco){
             const clave_carro=contenedor_clave.getAttribute("data-id");
             const index=discos_compra.findIndex(disco=>disco.clave===clave_carro);
             discos_compra.splice(index,1);
-            localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
             contenedor_clave.remove();
         }else{
             unidades.innerText=`${datos_disco.cantidad}`;
-            localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
+            
         }
 
         calcularsuma();

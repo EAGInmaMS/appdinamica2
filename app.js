@@ -133,10 +133,22 @@ comprarm.addEventListener("click",(disco)=>{
 });
 
 vaciar.addEventListener("click",()=>{
+    discos_compra=[];
     localStorage.clear();
-
     discos_carro.innerHTML="";
+    calcularsuma();
+});
 
+confirmar.addEventListener("click",()=>{
+    if(discos_compra.length==0){
+        mostrarMensaje("Aún no has comprado nada","mensajee");
+    }else{
+        mostrarMensaje("Gracias por tu compra","mensajee");
+        discos_compra=[];
+        localStorage.clear();
+        discos_carro.innerHTML="";
+    }
+    calcularsuma();
 });
 
 
