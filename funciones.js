@@ -77,11 +77,14 @@ function crearDisco(d){
 
     const mas=disco.querySelector(".ampliar");
     const añadir=disco.querySelector(".comprar");
+    const unicarro=disco.querySelector(".unidades");
+    const enviaruni=disco.querySelector("#enviaruni");
+    const formuni=disco.querySelector("#formuni");
 
     mas.addEventListener("click",(disco)=>{
         const padre=disco.currentTarget.parentElement.parentElement;
         const clave=padre.getAttribute("data-id");
-
+        
         const disco_buscado=discos.find(discob=>discob.id===clave);
 
         content_modal.setAttribute("data-id",clave);
@@ -95,17 +98,27 @@ function crearDisco(d){
     añadir.addEventListener("click",(disco)=>{
         const padre=disco.currentTarget.parentElement.parentElement;
         const clave=padre.getAttribute("data-id");
-
+        formuni.style.display="block";
+        añadir.style.display="none";
         const discoa=discos.find(discoe=>discoe.id===clave);
-        discoa.unidades--;
-        discos_compra.push(discoa);
+        enviaruni.addEventListener("click",()=>{
+            let cantidaduni=unicarro.value;
+            if(cantidaduni>0){
+                let discoaa={...discoa,cantidad:cantidaduni};
+                discos_compra.push(discoaa);
+                const nuevodiscocarro=añadirDiscoCarro(discoaa);
+                discos_carro.appendChild(nuevodiscocarro);
 
-        const nuevodiscocarro=añadirDiscoCarro(discoa);
-        discos_carro.appendChild(nuevodiscocarro);
+                localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
 
-        localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
+                mostrarMensaje("Disco añadido al carrito","mensajee");
+            }else{
+                mostrarMensaje("Cantidad incorrecta","mensajee");
+            }
+            
 
-        mostrarMensaje("Disco añadido al carrito","mensajee");
+        });
+        
     });
 
     return disco;
@@ -113,7 +126,7 @@ function crearDisco(d){
 
 function añadirDiscoCarro(datos_disco){
     const nuevo_disco=document.createElement('article');
-    let contador=1;
+    let contador=datos_disco.cantidad;
     nuevo_disco.classList.add('discocarro');
     nuevo_disco.setAttribute('data-id',datos_disco.id);
     nuevo_disco.innerHTML=`<img src="${datos_disco.imagen}" alt="${datos_disco.nombre}"/>
@@ -139,10 +152,20 @@ function añadirDiscoCarro(datos_disco){
         unidades.innerText=`${contador}`;
     });
 
-    menosuni.addEventListener("click",()=>{
+    menosuni.addEventListener("click",(evento)=>{
         contador--;
         datos_disco.unidades--;
-        unidades.innerText=`${contador}`;
+        if(contador==0){
+            const contenedor_clave=evento.currentTarget.parentElement.parentElement.parentElement;
+            const clave_carro=contenedor_clave.getAttribute("data-id");
+            const index=discos_compra.findIndex(disco=>disco.clave===clave_carro);
+            discos_compra.splice(index,1);
+            localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
+            contenedor_clave.remove();
+        }else{
+            unidades.innerText=`${contador}`;
+        }
+        
     });
 
     eliminar_disco.addEventListener("click",(evento)=>{
@@ -165,5 +188,5 @@ function mostrarMensaje(texto,clase){
     setTimeout(()=>{
         alerta.innerText="";
         alerta.classList.remove(clase);
-    },2000);
+    },3000);
 }
