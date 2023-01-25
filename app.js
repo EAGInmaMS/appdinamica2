@@ -33,6 +33,7 @@ cerrar_modal.addEventListener("click",()=>{
 
 abrir_carro.addEventListener("click",()=>{
     carro_compra.classList.add("show");
+    calcularsuma();
 });
 
 cerrar_carro.addEventListener("click",()=>{
@@ -111,7 +112,6 @@ comprarm.addEventListener("click",(disco)=>{
             if(cantidadm>0){
                 let discoaa={...discoa,cantidad:cantidadm};
                 discos_compra.push(discoaa);
-
                 const nuevodiscocarro=añadirDiscoCarro(discoaa);
                 discos_carro.appendChild(nuevodiscocarro);
 

@@ -130,7 +130,6 @@ function crearDisco(d){
 
 function añadirDiscoCarro(datos_disco){
     const nuevo_disco=document.createElement('article');
-    let contador=datos_disco.cantidad;
     nuevo_disco.classList.add('discocarro');
     nuevo_disco.setAttribute('data-id',datos_disco.id);
     nuevo_disco.innerHTML=`<img src="${datos_disco.imagen}" alt="${datos_disco.nombre}"/>
@@ -139,7 +138,7 @@ function añadirDiscoCarro(datos_disco){
         <p>${datos_disco.precio}€</p>
         <div>
             <button id='añadir_unidad'><i class="fa-solid fa-plus"></i></button>
-            <p id='unidades'>${contador}</p>
+            <p id='unidades'>${datos_disco.cantidad}</p>
             <button id='restar_unidad'><i class="fa-solid fa-minus"></i></button>
         </div>
         <button class='quitar'>Eliminar</button>
@@ -151,15 +150,15 @@ function añadirDiscoCarro(datos_disco){
     const eliminar_disco=nuevo_disco.querySelector(".quitar");
 
     masuni.addEventListener("click",()=>{
-        contador++;
-        datos_disco.unidades++;
-        unidades.innerText=`${contador}`;
+        datos_disco.cantidad++;
+        localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
+        unidades.innerText=`${datos_disco.cantidad}`;
+        calcularsuma();
     });
 
     menosuni.addEventListener("click",(evento)=>{
-        contador--;
-        datos_disco.unidades--;
-        if(contador==0){
+        datos_disco.cantidad--;
+        if(datos_disco.cantidad==0){
             const contenedor_clave=evento.currentTarget.parentElement.parentElement.parentElement;
             const clave_carro=contenedor_clave.getAttribute("data-id");
             const index=discos_compra.findIndex(disco=>disco.clave===clave_carro);
@@ -167,8 +166,11 @@ function añadirDiscoCarro(datos_disco){
             localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
             contenedor_clave.remove();
         }else{
-            unidades.innerText=`${contador}`;
+            unidades.innerText=`${datos_disco.cantidad}`;
+            localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
         }
+
+        calcularsuma();
         
     });
 
@@ -181,6 +183,8 @@ function añadirDiscoCarro(datos_disco){
         localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
         contenedor_clave.remove();
         mostrarMensaje("Eliminado con éxito","mensajee");
+
+        calcularsuma();
     })
 
     return nuevo_disco;
@@ -193,4 +197,13 @@ function mostrarMensaje(texto,clase){
         alerta.innerText="";
         alerta.classList.remove(clase);
     },3000);
+}
+
+function calcularsuma(){
+    let sumatotal=0;
+    discos_compra.forEach(disco=>{
+        sumatotal+=disco.cantidad*disco.precio;
+    });
+
+    stotal.innerText=`Total: ${sumatotal}€`;
 }
