@@ -161,8 +161,10 @@ function añadirDiscoCarro(datos_disco){
         if(datos_disco.cantidad==0){
             const contenedor_clave=evento.currentTarget.parentElement.parentElement.parentElement;
             const clave_carro=contenedor_clave.getAttribute("data-id");
-            const index=discos_compra.findIndex(disco=>disco.clave===clave_carro);
+            const index=discos_compra.findIndex(disco=>disco.id===clave_carro);
+            console.log(index);
             discos_compra.splice(index,1);
+            localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
             contenedor_clave.remove();
         }else{
             unidades.innerText=`${datos_disco.cantidad}`;
@@ -176,10 +178,11 @@ function añadirDiscoCarro(datos_disco){
     eliminar_disco.addEventListener("click",(evento)=>{
         const contenedor_clave=evento.currentTarget.parentElement.parentElement;
         const clave_carro=contenedor_clave.getAttribute("data-id");
-
-        const index=discos_compra.findIndex(disco=>disco.clave===clave_carro);
+        const index=discos_compra.findIndex(disco=>disco.id===clave_carro);
         discos_compra.splice(index,1);
+        console.log(discos_compra);
         localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
+        console.log(localStorage);
         contenedor_clave.remove();
         mostrarMensaje("Eliminado con éxito","mensajee");
 
