@@ -1,0 +1,371 @@
+body{
+    margin: 0px;
+}
+
+header{
+    border-bottom: 5px solid #9464f4;
+    background-color:#201e1f;
+    position: sticky;
+    top: 0px;
+}
+
+nav{
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+nav a{
+	color: #ddcbc7;
+	text-decoration: none;
+    font-family: 'Prompt', sans-serif;
+}
+
+.discos{
+    display: grid;
+    grid-template-columns: 20% 80%;
+    margin:4rem;
+}
+
+.discos h4{
+    text-align: left;
+    margin-bottom: 0.5rem;
+}
+
+.producto{
+    border: 3px solid #9464f4;
+    border-radius: 8px;
+    background-color: rgba(00, 00, 00,0.75);
+    width: 70%;
+    padding: 1rem;
+    margin: 1.5rem auto;
+    text-align: center;
+}
+
+
+
+.contenido_filtros{
+    position: sticky;
+    top: 6rem;
+    text-align: left;
+}
+
+#boton_fecha{
+    margin: auto;
+    background: transparent;
+    border: 0px;
+    color: #9464f4;
+}
+
+#boton_fecha:hover{
+    cursor: pointer;
+}
+
+.buscador{
+    height: 2rem;
+    border: 0px;
+    border-bottom: 3px solid #9464f4;
+    border-radius: 5px;
+    outline: none;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.buscador:hover{
+    outline: none;
+}
+
+.categorias{
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    
+}
+
+.categorias button{
+    margin: 0.5rem;
+    padding: 0.5rem;
+    border: 0px;
+    color: #9464f4;
+    background-color: rgba(100, 100, 100,00);
+    width: 2%;
+}
+
+h4{
+    text-align: center;
+}
+
+.filtro_fecha{
+    display: flex;
+    align-items: center;
+}
+
+.filtro_fecha input{
+    margin: 0.5rem;
+}
+
+.categorias button:hover{
+    cursor: pointer;
+}
+
+.discos-contenido{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-image: url(https://pastoralsj.org/images/articulos2/musica.jpg);
+    color: #ddcbc7;
+}
+
+.discos-contenido img{
+    width: 50%;
+    min-height: 18rem;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+}
+
+.contenido_carro{
+    opacity: 0;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    z-index: -99999;
+}
+
+.contenido_carro.show{
+    opacity: 1;
+    z-index: 9999;
+    width: 35%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color:#594D5B;
+    text-align: center;
+    max-height: 100vh;
+    
+}
+
+.abrir_carro{
+    padding: 0.5rem;
+    background: transparent;
+    color: #ddcbc7;
+    border: 0px;
+}
+
+.abrir_carro i{
+    font-size: 1.6rem;
+}
+
+.abrir_carro:hover{
+    cursor: pointer;
+}
+
+.modal{
+    opacity: 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -99999;
+}
+
+.modal.open{
+    opacity: 1;
+    z-index: 999;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(00, 00, 00,0.75);
+    text-align: center;
+    color: #ddcbc7;
+}
+
+.modal-contenido{
+    width: 70%;
+    margin: 2rem auto;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.modal img{
+    width: 40%;
+    object-fit: cover;
+}
+
+.close-btn{
+    width: 4rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem auto;
+    border: 0px;
+    font-size: 3rem;
+    background-color: transparent;
+    color: #ddcbc7;
+}
+
+.close-btn:hover{
+    cursor: pointer;
+}
+
+.ampliar,.comprar,.comprarmodal{
+    background: transparent;
+    color: #9464f4;
+    border: 2px solid #9464f4;
+    border-radius: 10px;
+    font-size: larger;
+    padding: 0.5rem;
+}
+
+.ampliar:hover,.comprar:hover, .comprarmodal:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.producto>:last-child{
+    font-family: 'Quicksand', sans-serif;
+
+}
+
+.datosdisco img{
+    width: 70%;
+}
+
+.datosdisco>:last-child button{
+    font-family: 'Prompt', sans-serif;
+}
+
+.filtros button{
+    font-family: 'Prompt', sans-serif;
+    font-size: large;
+}
+
+.filtros{
+    font-family: 'Prompt', sans-serif;
+}
+
+.precio-filtro{
+    background: #9464f4;
+    width: 250px;
+}
+
+.alerta{
+    display: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+
+.alerta.mensajee{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ddcbc7;
+    background-color: rgba(00, 00, 00,0.75);
+    z-index: 99999;
+}
+
+.alerta h3{
+    font-family: 'Prompt', sans-serif;
+    font-size: 6rem;
+}
+
+.carro{
+    color: #9464f4;
+    font-family: 'Prompt', sans-serif;
+}
+
+.discocarro{
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    color: #ddcbc7;
+    margin: 1.5rem auto;
+}
+
+.discocarro img{
+    width: 50%;
+}
+
+#datosdiscoa{
+    display: flex;
+    flex-direction: column;
+    color: #ddcbc7;
+    padding: 1.5rem;
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+
+}
+
+.carro>div{
+    text-align: left;
+    margin:1rem;
+}
+
+.cerrar_carro{
+    background: transparent;
+    color: #ddcbc7;
+    font-size: 1.5rem;
+}
+
+.cerrar_carro:hover{
+    cursor: pointer;
+}
+
+.vaciar_carro,.confirmar_compra{
+    background: transparent;
+    padding: 0.5rem;
+    border: 2px solid #9464f4;
+    border-radius: 20px;
+    color: #9464f4;
+    font-family: 'Prompt', sans-serif;
+    width: 50%;
+}
+
+.vaciar_carro{
+    color: red;
+}
+
+.vaciar_carro:hover,.confirmar_compra:hover{
+    cursor: pointer;
+}
+
+#datosdiscoa div{
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin: 0rem auto;
+}
+
+#datosdiscoa button{
+    background: transparent;
+    color: #ddcbc7;
+    border: 2px solid #ddcbc7;
+    border-radius: 5px;
+    margin: 0.5rem 0rem;
+    padding: 0.3rem;
+    font-family: 'Prompt', sans-serif;
+}
+
+#datosdiscoa button:last-child{
+    color: red;
+}
+
+button{
+    cursor: pointer;
+}
+
+.discos_carro{
+    max-height: 67vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#formuni{
+    display: none;
+}
+
+#formunimodal{
+    display: none;
+}
