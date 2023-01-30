@@ -1,5 +1,5 @@
 "use strict"
-
+let lista=[];
 const busqueda=document.querySelector(".buscador");
 const contenedor_discos=document.querySelector(".discos-contenido");
 const categorias=document.querySelector(".categorias");
@@ -23,6 +23,8 @@ const unimodal=document.querySelector(".unidadesm");
 const envimodal=document.getElementById("enviarunim");
 const stotal=document.querySelector(".total_compra");
 const confirmar=document.querySelector(".confirmar_compra");
+const pag_ant=document.getElementById("antes");
+const pag_sig=document.getElementById("despues");
 
 
 Inicio();
@@ -38,13 +40,16 @@ abrir_carro.addEventListener("click",()=>{
 
 cerrar_carro.addEventListener("click",()=>{
     carro_compra.classList.remove("show");
-})
+});
+
+pag_sig.addEventListener("click",cambiarPagina);
+pag_ant.addEventListener("click",cambiarPagina);
 
 
 precio.addEventListener("change",()=>{
     let filtrar;
     let limite=precio.value;
-    filtrar=discos.filter(disco=>disco.precio<=limite).sort((a,b)=>b.precio-a.precio);
+    filtrar=lista.filter(disco=>disco.precio<=limite).sort((a,b)=>b.precio-a.precio);
     if(filtrar.length==0){
         contenedor_discos.innerHTML="<h3>No hay elementos que coincidan con tu búsqueda</h3>";
     }else{

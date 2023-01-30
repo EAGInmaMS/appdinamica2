@@ -21,7 +21,8 @@
                         precio DECIMAL(5,2),
                         imagen VARCHAR(500),
                         categoria VARCHAR(50),
-                        unidades NUMBER(3,0));");
+                        unidades DECIMAL(3,0),
+                        PRIMARY KEY(id));");
     $sentencia->execute();
     echo "Tabla creada correctamente<br>";
 

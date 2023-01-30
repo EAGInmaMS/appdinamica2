@@ -1,8 +1,32 @@
 "use strict"
 
-function Inicio(){
-    renderizar(discos,contenedor_discos,crearDisco);
-    const lista_categoria=discos.map(disco=>disco.categoria).filter((c,i,array)=>array.indexOf(c)===i);
+async function Inicio(url_api="discosLista.php"){
+    // cargando.style.display="block";
+
+    const respuesta=await fetch(url_api);
+    const datos=await respuesta.json();
+
+    lista=datos["datos"];
+    console.log(datos);
+
+    if(datos["siguiente"]!=="null"){
+        pag_sig.setAttribute("href","http://"+datos["siguiente"]);
+        pag_sig.style.display="inline";
+    }else{
+        pag_sig.setAttribute("href","");
+        pag_sig.style.display="none";
+    }
+
+    if(datos["anterior"]!=="null"){
+        pag_ant.setAttribute("href","http://"+datos["anterior"]);
+        pag_ant.style.display="inline";
+    }else{
+        pag_ant.style.display="none";
+        pag_ant.setAttribute("href","");
+    }
+
+    renderizar(lista,contenedor_discos,crearDisco);
+    const lista_categoria=lista.map(disco=>disco.categoria).filter((c,i,array)=>array.indexOf(c)===i);
     categorias.innerHTML="<button class='categorias-btn'>Todas</button>";
     lista_categoria.forEach(cate=>{
         categorias.innerHTML+=`<button class='categorias-btn'>${cate}</button>`;
@@ -14,16 +38,16 @@ function Inicio(){
         if(activado.matches(".categorias-btn")){
             let filtro;
             if(activado.innerText.toLowerCase()==="todas"){
-                filtro=[...discos];
+                filtro=[...lista];
             }else{
-                filtro=discos.filter(disco=>disco.categoria.toLowerCase()===activado.innerText.toLowerCase());
+                filtro=lista.filter(disco=>disco.categoria.toLowerCase()===activado.innerText.toLowerCase());
             }
 
             renderizar(filtro,contenedor_discos,crearDisco);
         }
     });
 
-    const max=Math.ceil(discos.map(disco=>disco.precio).sort((a,b)=>b-a)[0]);
+    const max=Math.ceil(lista.map(disco=>disco.precio).sort((a,b)=>b-a)[0]);
     precio.value=max;
     limite_max.innerText="Precio máximo: "+max+"€";
 
@@ -32,6 +56,11 @@ function Inicio(){
     input_fecha1.value=hoy.toISOString().substring(0,10);
     input_fecha2.value=hoy.toISOString().substring(0,10);
 
+}
+
+function cambiarPagina(eventos){
+    eventos.preventDefault();
+    Inicio(eventos.target.href);
 }
 
 function renderizar(discos,contenedor,creador){
@@ -85,7 +114,7 @@ function crearDisco(d){
         const padre=disco.currentTarget.parentElement.parentElement;
         const clave=padre.getAttribute("data-id");
         
-        const disco_buscado=discos.find(discob=>discob.id===clave);
+        const disco_buscado=lista.find(discob=>discob.id===clave);
 
         content_modal.setAttribute("data-id",clave);
         content_modal.children[0].src=disco_buscado.imagen;
@@ -102,7 +131,7 @@ function crearDisco(d){
         if(discobuscado===undefined){
             formuni.style.display="block";
             añadir.style.display="none";
-            const discoa=discos.find(discoe=>discoe.id===clave);
+            const discoa=lista.find(discoe=>discoe.id===clave);
 
             enviaruni.addEventListener("click",()=>{
             let cantidaduni=unicarro.value;
