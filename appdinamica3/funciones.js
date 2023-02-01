@@ -92,7 +92,7 @@ function crearDisco(d){
                 <form id='formuni'>
                     <label for='uni'>Cantidad:</label>
                     <input type='number' name='uni' step=1 class='unidades' value='1'>
-                    <input type='submit' id='enviaruni'>
+                    <button id='enviaruni'>Enviar</button>
                 </form>
             </div>
         </div>
@@ -227,7 +227,7 @@ function mostrarMensaje(texto,clase){
     setTimeout(()=>{
         alerta.innerText="";
         alerta.classList.remove(clase);
-    },3000);
+    },4000);
 }
 
 function calcularsuma(){

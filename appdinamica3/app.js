@@ -64,9 +64,9 @@ busqueda.addEventListener("keyup",()=>{
     let filtro;
     let buscado=busqueda.value.trim().toLowerCase();
     if(buscado===""){
-        filtro=[...discos];
+        filtro=[...lista];
     }else{
-        filtro=discos.filter(disco=>disco.nombre.toLowerCase().includes(buscado));
+        filtro=lista.filter(disco=>disco.nombre.toLowerCase().includes(buscado));
     }
 
     if(filtro.lenght===0){
@@ -88,7 +88,7 @@ botonfecha.addEventListener("click",()=>{
 
     let discosfecha=[];
 
-    discos.forEach(disco=>{
+    lista.forEach(disco=>{
         let fecha=disco.fecha;
         fecha=Date.parse(fecha);
         
@@ -106,7 +106,7 @@ botonfecha.addEventListener("click",()=>{
 comprarm.addEventListener("click",(disco)=>{
     const padre=disco.currentTarget.parentElement;
     const clave=padre.getAttribute("data-id");
-    const discoa=discos.find(discoe=>discoe.id===clave);
+    const discoa=lista.find(discoe=>discoe.id===clave);
     const discobuscado=discos_compra.find(discob=>discob.id===clave);
     if(discobuscado===undefined){
         formo.style.display="block";
