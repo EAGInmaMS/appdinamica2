@@ -89,11 +89,11 @@ function crearDisco(d){
                 <button class='comprar'>Comprar
                 <i class="fa-solid fa-cart-shopping"></i>
                 </button>
-                <form id='formuni'>
+                <div id='formuni'>
                     <label for='uni'>Cantidad:</label>
                     <input type='number' name='uni' step=1 class='unidades' value='1'>
-                    <button id='enviaruni'>Enviar</button>
-                </form>
+                    <button type='button' id='enviaruni'>Enviar</button>
+                </div>
             </div>
         </div>
         <div>
@@ -197,6 +197,7 @@ function añadirDiscoCarro(datos_disco){
             contenedor_clave.remove();
         }else{
             unidades.innerText=`${datos_disco.cantidad}`;
+            localStorage.setItem("carro_compra",JSON.stringify(discos_compra));
             
         }
 
