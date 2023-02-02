@@ -25,6 +25,7 @@ const stotal=document.querySelector(".total_compra");
 const confirmar=document.querySelector(".confirmar_compra");
 const pag_ant=document.getElementById("antes");
 const pag_sig=document.getElementById("despues");
+const cargando=document.querySelector(".loading");
 
 
 Inicio();

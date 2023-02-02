@@ -1,13 +1,12 @@
 "use strict"
 
 async function Inicio(url_api="discosLista.php"){
-    // cargando.style.display="block";
+    cargando.style.display="flex";
 
     const respuesta=await fetch(url_api);
     const datos=await respuesta.json();
 
     lista=datos["datos"];
-    console.log(datos);
 
     if(datos["siguiente"]!=="null"){
         pag_sig.setAttribute("href","http://"+datos["siguiente"]);
@@ -26,6 +25,9 @@ async function Inicio(url_api="discosLista.php"){
     }
 
     renderizar(lista,contenedor_discos,crearDisco);
+
+    cargando.style.display="none";
+
     const lista_categoria=lista.map(disco=>disco.categoria).filter((c,i,array)=>array.indexOf(c)===i);
     categorias.innerHTML="<button class='categorias-btn'>Todas</button>";
     lista_categoria.forEach(cate=>{
